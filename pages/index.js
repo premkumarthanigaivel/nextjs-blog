@@ -20,31 +20,31 @@ export default function Home({ allPostsData }) {
     <Layout home>
       <Head>
         <title>{siteTitle}</title>
-    <script type="rocketlazyloadscript">
-            const domainKey = '684805421c395d186d31a621'
-            const proApiUrl = 'https://proapi.qa.experience.com'
+   <script type="rocketlazyloadscript">
+            const domainKey = '684805421c395d186d31a621';
+            const proApiUrl = 'https://proapi.qa.experience.com';
             
 const getSessionCookie = name => {
   const matches = document.cookie.match(
     new RegExp(`(?:^|;)\s*${name}=([^;]*)`)
-  )
-  return matches ? decodeURIComponent(matches[1]) : ""
+  );
+  return matches ? decodeURIComponent(matches[1]) : "";
 }
 const generateSessionId = () => {
   const randomString =
     Math.random().toString(36).substring(2, 15) +
-    Math.random().toString(36).substring(2, 15)
-  const timestamp = Date.now().toString(36)
-  return randomString + timestamp
+    Math.random().toString(36).substring(2, 15);
+  const timestamp = Date.now().toString(36);
+  return randomString + timestamp;
 }
 const getSessionId = () => {
-  let sessionId = getSessionCookie("ExpSessionId")
+  let sessionId = getSessionCookie("ExpSessionId");
   if (!sessionId) {
-    sessionId = generateSessionId()
+    sessionId = generateSessionId();
     document.cookie = `ExpSessionId=${sessionId}; path=/;
-SameSite=Lax; Secure`
+SameSite=Lax; Secure`;
   }
-  return sessionId
+  return sessionId;
 }
 
 const fetchPixel = async () => {
@@ -56,46 +56,46 @@ const fetchPixel = async () => {
       requestPageUrl: encodeURIComponent(window.location.href),
       userSessionId: getSessionId(),
       cookieConsent: true,
-    })
+    });
     const response = await fetch(
      `${proApiUrl}/api/pixel/v1/domain/pixel?${params.toString()}`
-    )
+    );
     if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`)
+      throw new Error(`HTTP error! status: ${response.status}`);
     }
-    const data = await response.json()
+    const data = await response.json();
     if (data.url) {
-      return data.url
+      return data.url;
     } else {
-      console.error("Pixel URL not found")
-      return null
+      console.error("Pixel URL not found");
+      return null;
     }
   } catch (error) {
-    console.error("Error fetching pixel:", error)
-    return null
+    console.error("Error fetching pixel:", error);
+    return null;
   }
 }
 const attachPixel = pixelUrl => {
   if (window.ExpDataCollector && typeof window.ExpDataCollector === "object") {
-    delete window.ExpDataCollector
+    delete window.ExpDataCollector;
   }
-  const script = document.createElement("script")
-  script.src = pixelUrl
-  script.async = true
-  script.onload = () => console.log("ExpDataCollector loaded")
-  script.onerror = () => console.error("Failed to load ExpDataCollector")
-  document.body.appendChild(script)
+  const script = document.createElement("script");
+  script.src = pixelUrl;
+  script.async = true;
+  script.onload = () => console.log("ExpDataCollector loaded");
+  script.onerror = () => console.error("Failed to load ExpDataCollector");
+  document.body.appendChild(script);
 }
 const loadPixel = async () => {
-  const pixelUrl = await fetchPixel()
+  const pixelUrl = await fetchPixel();
   if (pixelUrl) {
-    attachPixel(pixelUrl)
+    attachPixel(pixelUrl);
   }
 }
 if (document.readyState === "loading") {
-  document.addEventListener("DOMContentLoaded", loadPixel)
+  document.addEventListener("DOMContentLoaded", loadPixel);
 } else {
-  loadPixel()
+  loadPixel();
 }
 </script>
       </Head>
