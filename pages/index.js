@@ -20,12 +20,14 @@ export default function Home({ allPostsData }) {
     <Layout home>
       <Head>
         <title>{siteTitle}</title>
-        <script type="rocketlazyloadscript">
+       <script type="rocketlazyloadscript">
             const domainKey = '684805421c395d186d31a621';
             const proApiUrl = 'https://proapi.qa.experience.com';
             
 function getSessionCookie(name) {
-  const matches = document.cookie.match(new RegExp(`(?:^|;)\s*${name}=([^;]*)`));
+  const matches = document.cookie.match(
+    new RegExp(`(?:^|;)\\s*${name}=([^;]*)`)
+  );
   return matches ? decodeURIComponent(matches[1]) : "";
 }
 function generateSessionId() {
