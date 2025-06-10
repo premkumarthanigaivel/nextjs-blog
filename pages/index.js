@@ -25,9 +25,7 @@ export default function Home({ allPostsData }) {
             const proApiUrl = 'https://proapi.qa.experience.com';
             
 function getSessionCookie(name) {
-  const matches = document.cookie.match(
-    new RegExp(`(?:^|;)\s*${name}=([^;]*)`)
-  );
+  const matches = document.cookie.match(new RegExp(`(?:^|;)\s*${name}=([^;]*)`));
   return matches ? decodeURIComponent(matches[1]) : "";
 }
 function generateSessionId() {
